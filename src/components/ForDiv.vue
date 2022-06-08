@@ -1,5 +1,5 @@
 <template>
-  <div ><span id="title">数据部项目进度表   </span>
+  <div ><span id="title">数据部项目进度表</span>
    <el-upload
       ref="upload"
       :before-upload="upload"
