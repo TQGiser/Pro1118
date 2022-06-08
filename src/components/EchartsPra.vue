@@ -17,14 +17,16 @@ export default {
       myChart.setOption({
         title: {
           textStyle:{
-            color:'red',
-            fontSize:14
+            color:'white',
+            fontSize:16
           },
-          text: state.title
+          text: '项目名称:' + state.title,
+          left:'center',
+          backgroundColor:'rgb(69, 156, 232)'
         },
         legend: {
           top: "5%",
-          left: "center",
+          left: "1px",
         },
         tooltip: {
           trigger: "item",
@@ -41,6 +43,8 @@ export default {
               borderWidth: 2,
             },
             label: {
+              formatter: ' {d}% ',
+              position:'inside',
               show: true,
               alignTo: "edge",
             },
@@ -52,15 +56,18 @@ export default {
             //   },
             // },
             labelLine: {
-              show: true,
+              show: false,
             },
             data: [
-              { value: props.proProgres, name: '已完成:' + state.con },
-              { value: 100-props.proProgres, name: "待完成" },
+              { value: props.proProgres, name: props.proCon,},
+              { value: 100-props.proProgres, name: "待完成",label:{show:false} },
        
             ],
+             
           },
         ],
+        // backgroundColor: '#2c343c',
+        color:['rgb(69, 156, 232)', 'gray',]
       });
     };
     const state = reactive({
@@ -79,7 +86,8 @@ export default {
  
 <style scoped>
 .canvars {
-  width: 400px;
-  height:400px;
+  padding: 10px;
+  width: 500px;
+  height:500px;
 }
 </style>
