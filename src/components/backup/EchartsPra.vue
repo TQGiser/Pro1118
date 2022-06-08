@@ -1,26 +1,27 @@
 <template>
   <div class="canvars" ref="myRef"></div>
+  <button @click="test">test</button>
+  <div>{{ name1 }}</div>
 </template>
  
 <script>
 import * as echarts from "echarts";
 import { ref, onMounted, reactive, toRefs } from "vue";
 export default {
-  props: ['proName','proProgres','proCon'],
+  props: ['name'],
   setup(props) {
     const myRef = ref(null); // 获取dom实例
     onMounted(() => {
       renderChart(); // 生命周期挂载函数渲染图表
     });
+    const test = () => {
+      console.log(props.name)
+    }
     const renderChart = () => {
       const myChart = echarts.init(myRef.value);
       myChart.setOption({
         title: {
-          textStyle:{
-            color:'red',
-            fontSize:14
-          },
-          text: state.title
+          text: "Test",
         },
         legend: {
           top: "5%",
@@ -31,9 +32,9 @@ export default {
         },
         series: [
           {
-            name: props.proName,
+            name: "Access From",
             type: "pie",
-            radius: ["30%", "70%"],
+            radius: ["40%", "70%"],
             avoidLabelOverlap: false,
             itemStyle: {
               borderRadius: 10,
@@ -44,19 +45,19 @@ export default {
               show: true,
               alignTo: "edge",
             },
-            // emphasis: {
-            //   label: {
-            //     show: true,
-            //     fontSize: "40",
-            //     fontWeigth: "bold",
-            //   },
-            // },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: "40",
+                fontWeigth: "bold",
+              },
+            },
             labelLine: {
               show: true,
             },
             data: [
-              { value: props.proProgres, name: '已完成:' + state.con },
-              { value: 100-props.proProgres, name: "待完成" },
+              { value: 70, name: "1.Search Engine   2.asdfikg" },
+              { value: 30, name: "Direct" },
        
             ],
           },
@@ -64,12 +65,10 @@ export default {
       });
     };
     const state = reactive({
-      title: props.proName,
-      pro:props.proProgres,
-      con:props.proCon
-
+      name1: props.name
     })
     return {
+      test,
       ...toRefs(state),
       myRef,
     };
@@ -79,7 +78,7 @@ export default {
  
 <style scoped>
 .canvars {
-  width: 400px;
-  height:400px;
+  width: 800px;
+  height: 400px;
 }
 </style>
