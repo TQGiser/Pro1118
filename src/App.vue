@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Test from './components/ForDiv.vue'
+import Test from './components/FloatDiv.vue'
 export default {
   components:{ Test}
  
