@@ -7,7 +7,7 @@
       accept=".xlsx,.xls"
       style="width: 100px; display: inline-flex"
     >
-      <el-button type="primary"> 打开excel </el-button>
+      <el-button type="primary"> 打开excel文件 </el-button>
     </el-upload>
 
   </div>
