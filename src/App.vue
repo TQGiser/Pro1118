@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Test from './components/FloatDiv.vue'
+import Test from './components/EPlusT.vue'
 export default {
   components:{ Test}
  
