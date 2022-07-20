@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Test from './components/EPlusT.vue'
+import Test from './components/ForDiv.vue'
 export default {
   components:{ Test}
  
