@@ -1,8 +1,8 @@
 <template>
   <E3P />
   <BlogPost v-for="post in posts" :key="post.id" :title="post.title" :id="post.id"></BlogPost>
-  <EchartsPra />
-  <EchartsPra2 />
+  <!-- <EchartsPra />
+  <EchartsPra2 /> -->
   <child-comp /><br />
   <ChC2 /><br />
   <ChC5 />
@@ -33,8 +33,8 @@ import ChC4 from "./ChC4.vue";
 import ChC5 from "./ChC5.vue"
 import C5Event from "./C5Event.vue";
 import ModalV from "./ModalV.vue";
-import EchartsPra from "./EchartsPra.vue";
-import EchartsPra2 from "./EchartsPra2.vue";
+// import EchartsPra from "./EchartsPra.vue";
+// import EchartsPra2 from "./EchartsPra2.vue";
 import BlogPost from "./ChCoFa.vue";
 import E3P from "./E3P.vue";
 export default {
@@ -47,8 +47,8 @@ export default {
     ChC4,
     C5Event,
     ModalV,
-    EchartsPra,
-    EchartsPra2,
+    // EchartsPra,
+    // EchartsPra2,
     BlogPost
 
   },
