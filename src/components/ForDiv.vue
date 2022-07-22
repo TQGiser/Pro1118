@@ -1,7 +1,7 @@
 <template>
   <div ><span id="title">数据部项目进度表</span>
    <el-upload
-      ref="upload"
+   name="test"
       :before-upload="upload"
       :show-file-list="false"
       accept=".xlsx,.xls"

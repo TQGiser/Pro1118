@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import Test from './components/ForDiv.vue'
+import Test from './components/SFT2.vue'
+// import Test from './components/ForDiv.vue'
 export default {
   components:{ Test}
  
