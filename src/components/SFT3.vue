@@ -1,10 +1,7 @@
 <template>
-  <input ref="file" type="file" multiple accept=".shp,.dbf,.shx" />
+  <input ref="file" type="file" multiple accept=".shp" />
   <button @click="handleSelect">确认</button>
-  <!-- <el-upload ref="file" multiple accept=".shp,.dbf,.shx"
-    :before-upload="handleSelect">
-    <el-button type="primary" >Click to upload</el-button>
-  </el-upload> -->
+  <button @click="test">测试</button>
 </template>
 <script>
 import { read as shapeRead } from "shapefile";
@@ -16,26 +13,25 @@ export default {
     });
     const handleSelect = () => {
       let files = state.file.files;
-      // console.log(files, typeof files, 'files FileList')
       files = Array.from(files); // FileList => Array, 方便使用 Array 方法
-      // console.log(files, typeof files, 'files Array')
-      parseShapefile(files); // 解析选择的 shp 并绘制显示
+      parseShapefile(files); // 解析选择的 shp
     };
     const parseShapefile = (files) => {
+      console.log(files)
       const shpFile = files.find((f) => f.name.endsWith(".shp"));
-      const dbfFile = files.find((f) => f.name.endsWith(".dbf"));
-      const promises = [shpFile, dbfFile].map((i) => readInputFile(i));
+      console.log(shpFile)
+      const promises = [shpFile].map((i) => readInputFile(i));
       Promise.all(promises)
-        .then(([shp, dbf]) => {
-          return shapeRead(shp, dbf);
+        .then(([shp]) => {
+          return shapeRead(shp);
         })
         .then(async (source) => {
-          console.log(source);
+        //   console.log(source);
           return source.features;
         })
-        .then((featureJsons) => {
-          console.log(featureJsons);
-        })
+        // .then((featureJsons) => {
+        // //   console.log(featureJsons);
+        // })
         .catch((error) => console.error(error.stack));
     };
     const readInputFile = (file) => {
@@ -50,7 +46,13 @@ export default {
         };
       });
     };
+    const test = (rawFile)=>{
+
+        readInputFile(rawFile)
+
+    }
     return {
+      test,
       parseShapefile,
       handleSelect,
       readInputFile,
