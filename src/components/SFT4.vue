@@ -1,58 +1,60 @@
 <template>
-  <div ><span id="title">数据部项目进度表</span>
-   <el-upload
-   name="test"
-      :before-upload="upload"
-      :show-file-list="false"
-      accept=".xlsx,.xls"
-      style="width: 100px; display: inline-flex"
-    >
-      <el-button type="primary"> 打开excel文件 </el-button>
-    </el-upload>
-  </div>
+  <input ref="file" type="file" multiple accept=".shp" />
+  <button @click="handleSelect">确认</button>
+  <button @click="test">测试</button>
 </template>
-
 <script>
-import { reactive, toRefs } from "vue";
+import { read as shapeRead } from "shapefile";
+import { toRefs, reactive } from "vue";
 export default {
   setup() {
     const state = reactive({
-      projs: null,
+      file: null,
     });
-    function readExcel(file) {
-      const fileReader = new FileReader();
-      fileReader.onload = (ev) => {
-        console.log(ev.target.result,'AAA')
-      };
-      fileReader.readAsBinaryString(file);
-    }
-    function upload(rawFile) {
-      readExcel(rawFile);
-    }
+    const handleSelect = () => {
+      let files = state.file.files;
+      files = Array.from(files); // FileList => Array, 方便使用 Array 方法
+      parseShapefile(files); // 解析选择的 shp
+    };
+    const parseShapefile = (files) => {
+      const file = files[0]
+      const promise = readInputFile(file);
+      promise.then((data) => {
+          return shapeRead(data);
+        })
+        .then(async (source) => {
+          console.log(source.features);
+          // return source.features;
+        })
+        // .then((featureJsons) => {
+        // //   console.log(featureJsons);
+        // })
+        .catch((error) => console.error(error.stack));
+    };
+    const readInputFile = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = function () {
+          resolve(this.result);
+        };
+        reader.onerror = function () {
+          reject(this);
+        };
+      });
+    };
+    const test = (rawFile) => {
+      readInputFile(rawFile);
+    };
     return {
-      state,
+      test,
+      parseShapefile,
+      handleSelect,
+      readInputFile,
       ...toRefs(state),
-      readExcel,
-      upload,
     };
   },
 };
 </script>
-
-<style >
-.ted {
-  float: left;
-}
-#title{
-    color:white;
-    position:relative;
-    left:50%;
-    font-weight: 600;
-    font-size: 20px;
-    border: solid;
-    background-color:rgb(69, 156, 232);
-}
-/* #ted {
-    background-color: rgb(140, 228, 143);
-} */
+<style lang="scss" scoped>
 </style>
