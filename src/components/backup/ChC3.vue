@@ -4,7 +4,8 @@
   </div>
 
   <button @click="show">Show hide</button><br />
-  <p v-if="test">you can see now</p>
+  <div id = "t"><p v-if="test">you can see now</p></div>
+  
   <button @click="sub">-</button>
   <span>{{ counter }}</span>
   <button @click="add">+</button><br />
@@ -16,9 +17,19 @@
 import { reactive, toRefs } from "vue";
 export default {
   setup() {
+    const state = reactive({
+      path: "http://www.baidu.com",
+      test: false,
+      counter: 1,
+      msg: null
+    });
 
     const show = () => {
-      state.test = true;
+          if(state.test == false){
+            state.test = true
+          }else{
+            state.test = false
+          }
     };
     const add = () => {
       state.counter++;
@@ -27,12 +38,7 @@ export default {
       state.counter--;
     };
 
-    const state = reactive({
-      path: "http://www.baidu.com",
-      test: false,
-      counter: 1,
-      msg: null
-    });
+
     const pop = () => {
       alert(state.counter);
     };
@@ -54,4 +60,10 @@ span {
   font-size: 13px;
   margin: 10px;
 }
+#t{
+  background-color: brown;
+  position:absolute;
+  left:200px;
+  top:200px;
+  }
 </style>
